@@ -11,8 +11,8 @@ class StateProviderScreen extends ConsumerWidget {
     final int counter = ref.watch(counterProvider);
     final isDarkMode = ref.watch(darkModeProvider);
     final icon = (isDarkMode)
-        ? const Icon(Icons.light_mode_outlined, size: 100)
-        : const Icon(Icons.dark_mode_outlined, size: 100);
+        ? const Icon(Icons.dark_mode_outlined, size: 100)
+        : const Icon(Icons.light_mode_outlined, size: 100);
     final userName = ref.watch(usernameProvider);
 
     return Scaffold(
