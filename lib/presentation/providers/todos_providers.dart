@@ -57,3 +57,19 @@ class Todos extends _$Todos {
     ];
   }
 }
+
+@riverpod
+List<Todo> filteredTodos(FilteredTodosRef ref) {
+  final currentFilter = ref.watch(todoCurrentFilterProvider);
+  final todos = ref.watch(todosProvider);
+
+  switch (currentFilter) {
+    case FilterType.completed:
+      return todos.where((todo) => todo.done).toList();
+    case FilterType.pending:
+      return todos.where((todo) => !todo.done).toList();
+    case FilterType.all:
+    default:
+      return todos;
+  }
+}
