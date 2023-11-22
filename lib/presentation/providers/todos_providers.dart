@@ -10,7 +10,7 @@ const uuid = Uuid();
 
 enum FilterType { all, completed, pending }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class TodoCurrentFilter extends _$TodoCurrentFilter {
   @override
   FilterType build() => FilterType.all;
@@ -20,7 +20,7 @@ class TodoCurrentFilter extends _$TodoCurrentFilter {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Todos extends _$Todos {
   @override
   List<Todo> build() => [
@@ -35,6 +35,16 @@ class Todos extends _$Todos {
         Todo(id: uuid.v4(), description: RandomGenerator.getRandomName(), completedAt: null),
         Todo(id: uuid.v4(), description: RandomGenerator.getRandomName(), completedAt: DateTime.now()),
       ];
+
+  void toggleTodo(String id) {
+    state = state.map((todo) {
+      if (todo.id == id) {
+        return todo.copyWith(completedAt: todo.done ? null : DateTime.now());
+      } else {
+        return todo;
+      }
+    }).toList();
+  }
 
   void createTodo(String description) {
     state = [

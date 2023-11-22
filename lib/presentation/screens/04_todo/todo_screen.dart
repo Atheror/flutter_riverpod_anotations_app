@@ -58,7 +58,13 @@ class _TodoView extends ConsumerWidget {
             itemBuilder: (context, index) {
               final todo = todos[index];
 
-              return SwitchListTile(title: Text(todo.description), value: todo.done, onChanged: (value) {});
+              return SwitchListTile(
+                title: Text(todo.description),
+                value: todo.done,
+                onChanged: (value) {
+                  ref.read(todosProvider.notifier).toggleTodo(todo.id);
+                },
+              );
             },
           ),
         )
